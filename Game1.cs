@@ -1,4 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,6 +15,9 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    private List<Rectangle> textureStore;
+    private Dictionary<Vector2, int> tilemap;
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -16,11 +25,30 @@ public class Game1 : Game
         IsMouseVisible = true;
     }
 
+    public Dictionary<Vector2, int> LoadMap(String path){
+        Dictionary<Vector2, int> result = new Dictionary<Vector2, int>();
+        using(StreamReader csvFile = new StreamReader(path)){
+            string line; 
+            int y = 0;
+            while((line = csvFile.ReadLine()) != null){
+                int x = 0;
+                int[] row = line.Split(',').Select(num => Convert.ToInt32(num)).ToArray();
+                foreach(int val in row){
+                    result[new Vector2(x, y)] = val; 
+                    x++;
+                }
+                y++;
+            }
+        }
+        return result;
+    }
+
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
 
         base.Initialize();
+        Debug.Write('A');
     }
 
     protected override void LoadContent()

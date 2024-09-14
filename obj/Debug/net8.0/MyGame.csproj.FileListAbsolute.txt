@@ -23,3 +23,4 @@
 /home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/obj/Debug/net8.0/MyGame.pdb
 /home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/obj/Debug/net8.0/MyGame.genruntimeconfig.cache
 /home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/obj/Debug/net8.0/ref/MyGame.dll
+/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/obj/Debug/net8.0/MyGame.sourcelink.json
