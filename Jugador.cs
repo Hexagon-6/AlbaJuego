@@ -14,34 +14,37 @@ public class Jugador : ObjetoPosicionado{
     double timeSinceHit = 0;
     float iFramesTime = 1000;
 
-    bool moviendo = false;
-    double timeSinceLastMove = 0;
-    Vector2 velocidad = new Vector2(0, 0);
-    float delay = 300;
-    int steps = 6;
-    int stepsRemaining = 6;
-    public void Mover(GameTime gameTime){
+    Vector2 velocidad         = new Vector2(0, 0);
+    bool moviendo             = false;
+    double timeSinceLastMove  = 0;
+    double timeSinceLastInput = 0;
+    float moveDelay           = 300;
+    float inputDelay          = 200;
+    int steps                 = 6;
+    int stepsRemaining        = 6;
+    public void Mover(GameTime gameTime){ //debe actualizar su gridPosicion
         if(!moviendo){
             if(Keyboard.GetState().IsKeyDown(Keys.W)){
-                velocidad += new Vector2(0, -1f/steps);
-                moviendo = true;
+                velocidad.Y = -1f/steps;
+                timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if(Keyboard.GetState().IsKeyDown(Keys.A)){
-                velocidad += new Vector2(-1f/steps, 0);
-                moviendo = true;
+                velocidad.X = -1f/steps;
+                timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if(Keyboard.GetState().IsKeyDown(Keys.S)){
-                velocidad += new Vector2(0, 1f/steps);
-                moviendo = true;
+                velocidad.Y = 1f/steps;
+                timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if(Keyboard.GetState().IsKeyDown(Keys.D)){
-                velocidad += new Vector2(1f/steps, 0);
-                moviendo = true;
+                velocidad.X = 1f/steps;
+                timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
+            if(timeSinceLastInput > inputDelay && !velocidadIsZero()) moviendo = true;
         }
         else{
             timeSinceLastMove += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if(timeSinceLastMove >= delay/steps){
+            if(timeSinceLastMove >= moveDelay/steps){
                 this.AnimationOffset += velocidad*this.TileSize;
                 timeSinceLastMove = 0;
                 stepsRemaining--;
@@ -49,12 +52,16 @@ public class Jugador : ObjetoPosicionado{
             if(stepsRemaining == 0){
                 this.GridPosicion += velocidad * steps;
                 this.AnimationOffset = new Vector2(0, 0);
+                timeSinceLastInput = 0;
                 moviendo = false;
                 velocidad = new Vector2(0, 0);
                 timeSinceLastMove = 0;
                 stepsRemaining = steps;
             }
         }
+    }
+    public bool velocidadIsZero(){
+        return velocidad.X == 0 && velocidad.Y == 0;
     }
     public void damage(GameTime gameTime){
         if(!invincible && Vidas > 0){

@@ -14,14 +14,21 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private int _tileSize = 50;
+    private int _tileSize = 50; 
+    private int _mapWidth = 16;
+    private int _mapHeight = 9;
+    /*
+    50 - 16 - 9 para windowed default
+
+    120 - 16 - 9 para 1920x1080
+    */
 
     //private List<Rectangle> textureStore;
     private Dictionary<Vector2, int> tilemap;
 
     Grid mapa;
     Jugador pj;
-    Proyectil1 proy; //<-- temp
+    Proyectil1 proy; //<-- temp+
 
     public Game1()
     {
@@ -53,6 +60,8 @@ public class Game1 : Game
         // TODO: Add your initialization logic here
 
         base.Initialize();
+        // _graphics.IsFullScreen = true;
+        // _graphics.ApplyChanges();
         //Debug.Write('A');
     }
 
@@ -62,7 +71,7 @@ public class Game1 : Game
 
         String mapa_tex_path = "fondos/fondolv1";
         Texture2D mapa_tex = Content.Load<Texture2D>(mapa_tex_path);
-        mapa = new Grid(8, 8, _tileSize, mapa_tex); 
+        mapa = new Grid(_mapHeight, _mapWidth, _tileSize, mapa_tex); 
 
         String pj_tex_path = "sprites/pj";
         Texture2D pj_tex = Content.Load<Texture2D>(pj_tex_path);
