@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MyGame{
 public class Proyectil1 : ObjetoPosicionado{
-    public Proyectil1(int width, int height, int tileSize, Vector2 gridPosicion, Texture2D sprite) : base(width, height, tileSize, gridPosicion, sprite)
+    public Proyectil1(int tileSize, Vector2 gridPosicion, Texture2D sprite) : base(tileSize, gridPosicion, sprite)
     {
 
     }
@@ -14,7 +14,7 @@ public class Proyectil1 : ObjetoPosicionado{
             pj.damage(gameTime);
         }
     }
-    public void Update(GameTime gameTime, Jugador pj){
+    public override void Update(GameTime gameTime, Jugador pj){
         checkColision(gameTime, pj);
     }
 }

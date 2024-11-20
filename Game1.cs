@@ -67,19 +67,20 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        Dictionary<String, Texture2D> _textures = new Dictionary<string, Texture2D>{
+            {"pj", Content.Load<Texture2D>("sprites/pj")},
+            {"mapa", Content.Load<Texture2D>("fondos/fondolv1")},
+            {"proyectil", Content.Load<Texture2D>("sprites/proy1")},
+            {"obstacleUnbreakable", Content.Load<Texture2D>("sprites/proy1")}
+        };
 
-        String mapa_tex_path = "fondos/fondolv1";
-        Texture2D mapa_tex = Content.Load<Texture2D>(mapa_tex_path);
-        mapa = new Grid(_mapHeight, _mapWidth, _tileSize, mapa_tex); 
+        String mapa_tilemap_path = "Data/map.csv";
+        mapa = new Grid(_mapHeight, _mapWidth, _tileSize, _textures["mapa"], LoadMap(mapa_tilemap_path), _textures); 
 
-        String pj_tex_path = "sprites/pj";
-        Texture2D pj_tex = Content.Load<Texture2D>(pj_tex_path);
-        pj = new Jugador(_tileSize, _tileSize, _tileSize, new Vector2(6, 2), pj_tex, 5);
+        pj = new Jugador(_tileSize, new Vector2(6, 2), _textures["pj"], 5);
 
-        String proy_tex_path = "sprites/proy1";
-        Texture2D proy_tex = Content.Load<Texture2D>(proy_tex_path);
-        proy = new Proyectil1(_tileSize, _tileSize, _tileSize, new Vector2(2, 2), proy_tex);
 
         // TODO: use this.Content to load your game content here
     }
@@ -91,7 +92,7 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
         pj.Update(gameTime);
-        proy.Update(gameTime, pj);
+        mapa.Update(gameTime, pj);
         base.Update(gameTime);
     }
 
@@ -103,7 +104,7 @@ public class Game1 : Game
         _spriteBatch.Begin(samplerState : SamplerState.PointClamp);
         mapa.Draw(_spriteBatch);
         pj.Draw(_spriteBatch);
-        proy.Draw(_spriteBatch);
+        
         _spriteBatch.End();
 
         base.Draw(gameTime);

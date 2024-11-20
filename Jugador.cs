@@ -5,39 +5,39 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MyGame{
 public class Jugador : ObjetoPosicionado{
-    protected int Vidas;
-    public Jugador(int width, int height, int tileSize, Vector2 gridPosicion, Texture2D sprite, int vidas) : base(width, height, tileSize, gridPosicion, sprite)
+    protected int _vidas;
+    public Vector2 _velocidad = new Vector2(0, 0);
+    public Jugador(int tileSize, Vector2 gridPosicion, Texture2D sprite, int vidas) : base(tileSize, gridPosicion, sprite)
     {   
-        Vidas = vidas;
+        _vidas = vidas;
     }
     bool invincible = false;
     double timeSinceHit = 0;
-    float iFramesTime = 1000;
+    float iFramesTime = 480;
 
-    Vector2 velocidad         = new Vector2(0, 0);
-    bool moviendo             = false;
-    double timeSinceLastMove  = 0;
-    double timeSinceLastInput = 0;
-    float moveDelay           = 300;
-    float inputDelay          = 200;
-    int steps                 = 6;
-    int stepsRemaining        = 6;
+    bool moviendo               = false;
+    double timeSinceLastMove    = 0;
+    double timeSinceLastInput   = 0;
+    float moveDelay             = 300;
+    float inputDelay            = 120;
+    int steps                   = 6;
+    int stepsRemaining          = 6;
     public void Mover(GameTime gameTime){ //debe actualizar su gridPosicion
         if(!moviendo){
             if(Keyboard.GetState().IsKeyDown(Keys.W)){
-                velocidad.Y = -1f/steps;
+                _velocidad = new Vector2 (_velocidad.X , -1f);
                 timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if(Keyboard.GetState().IsKeyDown(Keys.A)){
-                velocidad.X = -1f/steps;
+                _velocidad = new Vector2(-1f, _velocidad.Y);
                 timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if(Keyboard.GetState().IsKeyDown(Keys.S)){
-                velocidad.Y = 1f/steps;
+                _velocidad = new Vector2 (_velocidad.X , 1f);
                 timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if(Keyboard.GetState().IsKeyDown(Keys.D)){
-                velocidad.X = 1f/steps;
+                _velocidad = new Vector2(1f, _velocidad.Y);
                 timeSinceLastInput += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             if(timeSinceLastInput > inputDelay && !velocidadIsZero()) moviendo = true;
@@ -45,31 +45,36 @@ public class Jugador : ObjetoPosicionado{
         else{
             timeSinceLastMove += gameTime.ElapsedGameTime.TotalMilliseconds;
             if(timeSinceLastMove >= moveDelay/steps){
-                this.AnimationOffset += velocidad*this.TileSize;
+                this.AnimationOffset += (_velocidad/steps) * this.TileSize;
                 timeSinceLastMove = 0;
                 stepsRemaining--;
             }
             if(stepsRemaining == 0){
-                this.GridPosicion += velocidad * steps;
-                this.AnimationOffset = new Vector2(0, 0);
-                timeSinceLastInput = 0;
-                moviendo = false;
-                velocidad = new Vector2(0, 0);
-                timeSinceLastMove = 0;
-                stepsRemaining = steps;
+                this.GridPosicion += _velocidad;
+                this.bump();
             }
         }
     }
     public bool velocidadIsZero(){
-        return velocidad.X == 0 && velocidad.Y == 0;
+        return this._velocidad.X == 0 && this._velocidad.Y == 0;
     }
+
+    public void bump(){
+        this.AnimationOffset = new Vector2(0, 0);
+        timeSinceLastInput = 0;
+        moviendo = false;
+        _velocidad = new Vector2(0, 0);
+        timeSinceLastMove = 0;
+        stepsRemaining = steps;
+    }
+
     public void damage(GameTime gameTime){
-        if(!invincible && Vidas > 0){
-                Vidas--;
-                Debug.WriteLine("Vidas: " + this.Vidas);
+        if(!invincible && _vidas > 0){
+                _vidas--;
+                Debug.WriteLine("Vidas: " + this._vidas);
                 Debug.WriteLine("Recibido daño");
                 invincible = true;
-                if(Vidas == 0){
+                if(_vidas == 0){
                     Debug.WriteLine("Game Over!");
                 }
         }
