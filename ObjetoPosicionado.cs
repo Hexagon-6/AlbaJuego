@@ -9,12 +9,16 @@ namespace MyGame{
         public Vector2 GridPosicion { get; set; }
         protected Vector2 AnimationOffset { get; set; }
         public Texture2D Sprite { get; set; }
+        public Grid Grilla { get; set; }
+        public int ID { get; set; }
 
-        public ObjetoPosicionado(int tileSize, Vector2 gridPosicion, Texture2D sprite){
+        public ObjetoPosicionado(int tileSize, Vector2 gridPosicion, Texture2D sprite, Grid grilla, int id){
             TileSize = tileSize;
             Sprite = sprite;
             GridPosicion = gridPosicion;
+            Grilla = grilla;
             AnimationOffset = new Vector2(0, 0);
+            ID = id;
         }
         public Rectangle hitbox(){
             int x = (int)(GridPosicion.X * TileSize);

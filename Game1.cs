@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+TODO jugador, grilla, texturas en global
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -79,7 +83,7 @@ public class Game1 : Game
         String mapa_tilemap_path = "Data/map.csv";
         mapa = new Grid(_mapHeight, _mapWidth, _tileSize, _textures["mapa"], LoadMap(mapa_tilemap_path), _textures); 
 
-        pj = new Jugador(_tileSize, new Vector2(6, 2), _textures["pj"], 5);
+        pj = new Jugador(_tileSize, new Vector2(6, 2), _textures["pj"], 5, mapa, -1);
 
 
         // TODO: use this.Content to load your game content here

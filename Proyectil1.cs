@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MyGame{
 public class Proyectil1 : ObjetoPosicionado{
-    public Proyectil1(int tileSize, Vector2 gridPosicion, Texture2D sprite) : base(tileSize, gridPosicion, sprite)
+    public Proyectil1(int tileSize, Vector2 gridPosicion, Texture2D sprite, Grid grilla, int id) : base(tileSize, gridPosicion, sprite, grilla, id)
     {
 
     }

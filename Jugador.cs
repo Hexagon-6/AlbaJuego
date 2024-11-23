@@ -7,7 +7,8 @@ namespace MyGame{
 public class Jugador : ObjetoPosicionado{
     protected int _vidas;
     public Vector2 _velocidad = new Vector2(0, 0);
-    public Jugador(int tileSize, Vector2 gridPosicion, Texture2D sprite, int vidas) : base(tileSize, gridPosicion, sprite)
+    private const int BOMBA = 3;
+    public Jugador(int tileSize, Vector2 gridPosicion, Texture2D sprite, int vidas, Grid grilla, int id) : base(tileSize, gridPosicion, sprite, grilla, id)
     {   
         _vidas = vidas;
     }
@@ -58,7 +59,6 @@ public class Jugador : ObjetoPosicionado{
     public bool velocidadIsZero(){
         return this._velocidad.X == 0 && this._velocidad.Y == 0;
     }
-
     public void bump(){
         this.AnimationOffset = new Vector2(0, 0);
         timeSinceLastInput = 0;
@@ -66,6 +66,16 @@ public class Jugador : ObjetoPosicionado{
         _velocidad = new Vector2(0, 0);
         timeSinceLastMove = 0;
         stepsRemaining = steps;
+    }
+
+    double timeSinceLastBomb = 0;
+    float bombDelay = 1000;
+    public void PonerBomba(GameTime gameTime){
+        timeSinceLastBomb += gameTime.ElapsedGameTime.TotalMilliseconds;
+        if(timeSinceLastBomb >= bombDelay && Keyboard.GetState().IsKeyDown(Keys.N) && !moviendo){ //mover parte del input a movimiento en todo caso idk
+            Grilla.AddObject(BOMBA, this.GridPosicion);
+            timeSinceLastBomb = 0;
+        }  
     }
 
     public void damage(GameTime gameTime){
@@ -88,6 +98,7 @@ public class Jugador : ObjetoPosicionado{
     }
     public void Update(GameTime gameTime){
         Mover(gameTime);
+        PonerBomba(gameTime);
     }
 }
 }
