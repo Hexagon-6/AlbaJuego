@@ -16,7 +16,13 @@ public class Obstaculo : ObjetoPosicionado{
             pj.bump();
         }
     }
-    public override void Update(GameTime gameTime, Jugador pj){
+        public override void ThyEndIsNow()
+        {
+            if(Destructible){
+                base.ThyEndIsNow();
+            }
+        }
+        public override void Update(GameTime gameTime, Jugador pj){
         checkColision(gameTime, pj);
     }
 }

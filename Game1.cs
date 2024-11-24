@@ -32,7 +32,9 @@ public class Game1 : Game
 
     Grid mapa;
     Jugador pj;
-    Proyectil1 proy; //<-- temp+
+    Dictionary<String, Texture2D> _textures;
+    
+    int LV = 2; //SETEAR MANUALMENTE EL NIVEL
 
     public Game1()
     {
@@ -71,19 +73,62 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        Dictionary<String, Texture2D> _textures = new Dictionary<string, Texture2D>{
+        String mapa_tilemap_path;
+
+        //valores default
+        _textures = new Dictionary<string, Texture2D>{
             {"pj", Content.Load<Texture2D>("sprites/pj")},
             {"mapa", Content.Load<Texture2D>("fondos/fondolv1")},
             {"proyectil", Content.Load<Texture2D>("sprites/proy1")},
-            {"obstacleUnbreakable", Content.Load<Texture2D>("sprites/proy1")}
+            {"obstacleUnbreakable", Content.Load<Texture2D>("sprites/proy1")},
+            {"obstacleBreakable", Content.Load<Texture2D>("sprites/proy1")},
+            {"bomb", Content.Load<Texture2D>("sprites/proy1")},
+            {"explosion", Content.Load<Texture2D>("sprites/proy1")},
+            {"enemy", Content.Load<Texture2D>("sprites/pj")},
+            {"enemySpawner", Content.Load<Texture2D>("sprites/proy1")}
         };
+        mapa_tilemap_path = "Data/map.csv";
 
-        String mapa_tilemap_path = "Data/map.csv";
+        //valores para cada nivel
+        switch(LV){
+            //acá se puede añadir configuración adicional para cada nivel (ej. stats de enemigos) si fuera necesario
+            case 1:
+                _textures = new Dictionary<string, Texture2D>{
+                    {"pj", Content.Load<Texture2D>("sprites/pj")},
+                    {"mapa", Content.Load<Texture2D>("fondos/fondolv1")},
+                    {"proyectil", Content.Load<Texture2D>("sprites/proy1")},
+                    {"obstacleUnbreakable", Content.Load<Texture2D>("sprites/proy1")},
+                    {"obstacleBreakable", Content.Load<Texture2D>("sprites/proy1")},
+                    {"bomb", Content.Load<Texture2D>("sprites/proy1")},
+                    {"explosion", Content.Load<Texture2D>("sprites/proy1")},
+                    {"enemy", Content.Load<Texture2D>("sprites/pj")},
+                    {"enemySpawner", Content.Load<Texture2D>("sprites/proy1")}
+                };
+                mapa_tilemap_path = "Data/map.csv";
+                break;
+            case 2:
+                _textures = new Dictionary<string, Texture2D>{
+                    {"pj", Content.Load<Texture2D>("sprites/pj")},
+                    {"mapa", Content.Load<Texture2D>("fondos/fondolv2")},
+                    {"proyectil", Content.Load<Texture2D>("sprites/proy1")},
+                    {"obstacleUnbreakable", Content.Load<Texture2D>("sprites/proy1")},
+                    {"obstacleBreakable", Content.Load<Texture2D>("sprites/proy1")},
+                    {"bomb", Content.Load<Texture2D>("sprites/proy1")},
+                    {"explosion", Content.Load<Texture2D>("sprites/proy1")},
+                    {"enemy", Content.Load<Texture2D>("sprites/pj")},
+                    {"enemySpawner", Content.Load<Texture2D>("sprites/proy1")},
+                    {"mapa2", Content.Load<Texture2D>("fondos/fondolv2-2")}
+                };
+                mapa_tilemap_path = "Data/map2.csv";
+                break;
+            default:
+                break;
+        }
+
         mapa = new Grid(_mapHeight, _mapWidth, _tileSize, _textures["mapa"], LoadMap(mapa_tilemap_path), _textures); 
 
-        pj = new Jugador(_tileSize, new Vector2(6, 2), _textures["pj"], 5, mapa, -1);
+        pj = new Jugador(_tileSize, new Vector2(7, 2), _textures["pj"], 5, mapa, -1);
 
 
         // TODO: use this.Content to load your game content here
@@ -108,7 +153,10 @@ public class Game1 : Game
         _spriteBatch.Begin(samplerState : SamplerState.PointClamp);
         mapa.Draw(_spriteBatch);
         pj.Draw(_spriteBatch);
-        
+        if(LV == 2){
+            _spriteBatch.Draw(_textures["mapa2"], new Rectangle(0, 0, _tileSize*_mapWidth, _tileSize*_mapHeight), Color.White);
+        }
+
         _spriteBatch.End();
 
         base.Draw(gameTime);

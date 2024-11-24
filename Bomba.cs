@@ -16,14 +16,12 @@ public class Bomba : ObjetoPosicionado{
     public void explotar(GameTime gameTime){
         timePassed += gameTime.ElapsedGameTime.TotalMilliseconds;
         if(timePassed >= Delay){
-            //borrar
-            //algo funi sería que para borrar se mande el objeto fuera del mapa a un punto específico. Después el punto "basurero" lo va limpiando la grilla periódicamente
             Grilla.AddObject(EXPLOSION, this.GridPosicion);
             Grilla.AddObject(EXPLOSION, this.GridPosicion + new Vector2(1, 0));
             Grilla.AddObject(EXPLOSION, this.GridPosicion + new Vector2(-1, 0));
             Grilla.AddObject(EXPLOSION, this.GridPosicion + new Vector2(0, 1));
             Grilla.AddObject(EXPLOSION, this.GridPosicion + new Vector2(0, -1));
-            Grilla.DeleteObject(ID);
+            this.ThyEndIsNow();
         }
     }
     public override void Update(GameTime gameTime, Jugador pj){

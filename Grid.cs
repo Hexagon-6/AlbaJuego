@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
@@ -19,10 +20,10 @@ public class Grid{
         Width = width;
         TileSize = tileSize;
         Sprite = sprite;
-        Objects = new ObjetoPosicionado[512];
+        Objects = new ObjetoPosicionado[2048];
         Textures = textures;
         foreach(var tile in loadedMap){
-            
+            AddObject(tile.Value, tile.Key);
         }
         for(int i = 0; i < width; i++){
             Objects[index++] = new Obstaculo(tileSize, new Vector2(i, -1), textures["obstacleUnbreakable"], false, this, index);
@@ -45,22 +46,38 @@ public class Grid{
                 Objects[index++] = obstacleUnbreakable;
                 break;
             case 2:
-                Obstaculo obstacleBreakable = new Obstaculo(TileSize, posicion, Textures["obstacleUnbreakable"], false, this, index);
+                Obstaculo obstacleBreakable = new Obstaculo(TileSize, posicion, Textures["obstacleBreakable"], true, this, index);
                 Objects[index++] = obstacleBreakable;
                 break;
             case 3:
-                Bomba bomb = new Bomba(TileSize, posicion, Textures["obstacleUnbreakable"], this, 2000, index);
+                Bomba bomb = new Bomba(TileSize, posicion, Textures["bomb"], this, 2000, index);
                 Objects[index++] = bomb;
                 break;
             case 4:
-                Debug.WriteLine(index);
-                Explosion explosion = new Explosion(TileSize, posicion, Textures["obstacleUnbreakable"], this, 1000, index);
+                Explosion explosion = new Explosion(TileSize, posicion, Textures["explosion"], this, 600, index);
                 Objects[index++] = explosion;
+                break;
+            case 5:
+                Enemigo enemy = new Enemigo(TileSize, posicion, Textures["enemy"], 1, this, index);
+                Objects[index++] = enemy;
+                break;
+            case 6:
+                Spawner spawner = new Spawner(TileSize, posicion, Textures["bomb"], this, 5000, 25000, index);
+                Objects[index++] = spawner;
                 break;
         }
     }
     public void DeleteObject(int id){
         Objects[id] = null;
+    }
+    public void ExplodeObject(int id){
+        Vector2 explosionPosicion = Objects[id].GridPosicion;
+        foreach(var obj in Objects.Where(obj => {
+            return !(obj == null) ? (obj.GridPosicion.X == explosionPosicion.X && obj.GridPosicion.Y == explosionPosicion.Y) : false;
+        })){
+            if (obj == null) {continue;}
+            obj.ThyEndIsNow();
+        }
     }
     public void Update(GameTime gameTime, Jugador pj){
         foreach(var obj in Objects){

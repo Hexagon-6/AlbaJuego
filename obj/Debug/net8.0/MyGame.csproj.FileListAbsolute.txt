@@ -28,3 +28,5 @@
 /home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/bin/Debug/net8.0/Content/sprites/pj.xnb
 /home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/bin/Debug/net8.0/Content/sprites/proy1.xnb
 /home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/bin/Debug/net8.0/Content/fondos/fondolv1.xnb
+/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/bin/Debug/net8.0/Content/fondos/fondolv2-2.xnb
+/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/bin/Debug/net8.0/Content/fondos/fondolv2.xnb

@@ -12,14 +12,21 @@ public class Explosion : ObjetoPosicionado{
     }
     
     double timePassed = 0;
-    public void explotar(GameTime gameTime){
+    public void explotar(GameTime gameTime, Jugador pj){
+        //dañar jugador
+        if(this.hitbox().Intersects(pj.hitbox())){
+            pj.damage(gameTime);
+        }
+
+        //explotar otros objetos
         timePassed += gameTime.ElapsedGameTime.TotalMilliseconds;
         if(timePassed >= Delay){
-            Grilla.DeleteObject(ID);
+            Grilla.ExplodeObject(ID);
         }
+
     }
     public override void Update(GameTime gameTime, Jugador pj){
-        explotar(gameTime);
+        explotar(gameTime, pj);
     }
 }
 }

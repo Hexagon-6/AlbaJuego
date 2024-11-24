@@ -13,15 +13,17 @@ public class Jugador : ObjetoPosicionado{
         _vidas = vidas;
     }
     bool invincible = false;
+    static object lockInvincibility = new object();
+
     double timeSinceHit = 0;
-    float iFramesTime = 480;
+    float iFramesTime = 2000; //período de invincibilidad
 
     bool moviendo               = false;
     double timeSinceLastMove    = 0;
     double timeSinceLastInput   = 0;
-    float moveDelay             = 300;
-    float inputDelay            = 120;
-    int steps                   = 6;
+    float moveDelay             = 300; //delay entre cada movimiento
+    float inputDelay            = 120; //tiempo en que permite procesar múltiples inputs (mayormente el movimiento diagonal)
+    int steps                   = 6;   //cantidad de frames en que sucede el movimiento de una casilla
     int stepsRemaining          = 6;
     public void Mover(GameTime gameTime){ //debe actualizar su gridPosicion
         if(!moviendo){
@@ -72,7 +74,7 @@ public class Jugador : ObjetoPosicionado{
     float bombDelay = 1000;
     public void PonerBomba(GameTime gameTime){
         timeSinceLastBomb += gameTime.ElapsedGameTime.TotalMilliseconds;
-        if(timeSinceLastBomb >= bombDelay && Keyboard.GetState().IsKeyDown(Keys.N) && !moviendo){ //mover parte del input a movimiento en todo caso idk
+        if(timeSinceLastBomb >= bombDelay && Keyboard.GetState().IsKeyDown(Keys.N) && !moviendo){
             Grilla.AddObject(BOMBA, this.GridPosicion);
             timeSinceLastBomb = 0;
         }  
@@ -89,16 +91,20 @@ public class Jugador : ObjetoPosicionado{
                 }
         }
         else{
-            timeSinceHit += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (timeSinceHit >= iFramesTime){
                 invincible = false;
                 timeSinceHit = 0;
             }
         }
     }
+    public void ReducirIframes(GameTime gameTime){
+        timeSinceHit += gameTime.ElapsedGameTime.TotalMilliseconds;
+    }
+
     public void Update(GameTime gameTime){
         Mover(gameTime);
         PonerBomba(gameTime);
+        ReducirIframes(gameTime);
     }
 }
 }
