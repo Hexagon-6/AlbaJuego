@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/Content/fondos/fondolv1.png</SourceFile>
-  <SourceTime>2024-11-03T14:47:01.2876348-03:00</SourceTime>
-  <DestFile>/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/Content/bin/DesktopGL/Content/fondos/fondolv1.xnb</DestFile>
-  <DestTime>2024-11-11T00:34:41.0626142-03:00</DestTime>
+  <SourceFile>/media/marco/Gaster/Naval/Homework/6°/Programación sobre redes/Juego/MyGame/Content/fondos/fondolv1.png</SourceFile>
+  <SourceTime>2024-11-03T14:47:01.287634-03:00</SourceTime>
+  <DestFile>/media/marco/Gaster/Naval/Homework/6°/Programación sobre redes/Juego/MyGame/Content/bin/DesktopGL/Content/fondos/fondolv1.xnb</DestFile>
+  <DestTime>2026-01-01T16:28:42.8878025-03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2024-08-16T14:05:56-03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

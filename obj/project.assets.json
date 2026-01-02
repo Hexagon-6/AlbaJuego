@@ -243,11 +243,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/MyGame.csproj",
+      "projectUniqueName": "/home/marco/Documents/Naval/Homework/6°/Programación sobre redes/Juego/MyGame/MyGame.csproj",
       "projectName": "MyGame",
-      "projectPath": "/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/MyGame.csproj",
+      "projectPath": "/home/marco/Documents/Naval/Homework/6°/Programación sobre redes/Juego/MyGame/MyGame.csproj",
       "packagesPath": "/home/marco/.nuget/packages/",
-      "outputPath": "/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/obj/",
+      "outputPath": "/home/marco/Documents/Naval/Homework/6°/Programación sobre redes/Juego/MyGame/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/marco/.nuget/NuGet/NuGet.Config"
@@ -299,7 +299,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.121/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

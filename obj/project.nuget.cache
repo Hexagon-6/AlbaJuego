@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+1jP8O6buogbi7Gj/nByS/air/jY+fjyudVlX3NYAg062hNiKifoQrRhqGc947r6vrB0/yHdOi1lBqQq1RzxRg==",
+  "dgSpecHash": "d5aMGfrgpuMIJGSdDBN7zFEhg7UsH25Fvqqs4+CYyRlHGgs/876RkzbHaJINsaxlrHCPVs8Mi0ti8QjMJuFdKQ==",
   "success": true,
-  "projectFilePath": "/home/marco/Documents/Homwork/6°/Programación sobre redes/Juego/MyGame/MyGame.csproj",
+  "projectFilePath": "/home/marco/Documents/Naval/Homework/6°/Programación sobre redes/Juego/MyGame/MyGame.csproj",
   "expectedPackageFiles": [
     "/home/marco/.nuget/packages/monogame.content.builder.task/3.8.2.1105/monogame.content.builder.task.3.8.2.1105.nupkg.sha512",
     "/home/marco/.nuget/packages/monogame.framework.desktopgl/3.8.2.1105/monogame.framework.desktopgl.3.8.2.1105.nupkg.sha512",
